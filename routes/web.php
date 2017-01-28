@@ -12,9 +12,12 @@
 */
 
 Route::get('/', 'PageController@home');
-Route::get('dashboard', 'DashboardController@index');
+Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+
+Route::get('setup', 'SetupController@index')->name('setup');
+Route::post('setup', 'SetupController@setup');
 
 // Auth
-Route::get('/github', ['as' => 	'login', 'uses' =>'Auth\GithubController@redirectToProvider']);
-Route::get('/github/callback', 'Auth\GithubController@handleProviderCallback');
-Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\GithubController@logout']);
+Route::get('login', 'Auth\GithubController@redirectToProvider')->name('login');
+Route::get('login/callback', 'Auth\GithubController@handleProviderCallback');
+Route::get('logout', 'Auth\GithubController@logout')->name('logout');

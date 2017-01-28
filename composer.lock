@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "429e456b1cc09bcb6d22802c71a30fd3",
+    "content-hash": "012fb0fcd8535737976b68bc070d851f",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -790,6 +790,50 @@
                 "storage"
             ],
             "time": "2016-10-19T20:38:46+00:00"
+        },
+        {
+            "name": "lukebro/flash",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lukebro/flash.git",
+                "reference": "8fd1e68449d2c697f1dfe7aa4f9a85768e99c585"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lukebro/flash/zipball/8fd1e68449d2c697f1dfe7aa4f9a85768e99c585",
+                "reference": "8fd1e68449d2c697f1dfe7aa4f9a85768e99c585",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/lukebro/Flash/helpers.php"
+                ],
+                "psr-4": {
+                    "Lukebro\\": "src/lukebro/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lukasz Brodowski",
+                    "email": "lukebrodowski@gmail.com"
+                }
+            ],
+            "description": "Magical flash notifications in Laravel 5.*",
+            "time": "2016-01-28T03:41:51+00:00"
         },
         {
             "name": "monolog/monolog",

@@ -17,4 +17,19 @@ class User extends Authenticatable
     protected $fillable = [
         'username', 'name', 'email', 'git_token', 'type', 'avatar_url',
     ];
+
+    public function scopeTeachers($query)
+    {
+    	return $query->where('type', 'teacher');
+    }
+
+    public function scopeStudents($query)
+    {
+    	return $query->where('type', 'student');
+    }
+
+    public function isSetup()
+    {
+    	return ! is_null($this->type);
+    }
 }

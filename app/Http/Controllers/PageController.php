@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -13,7 +14,11 @@ class PageController extends Controller
 
     public function home()
     {
-    	return view('pages.home')->withTitle('Home'); 
+    	return view('pages.home', [
+    		'students' => User::students()->count(),
+    		'teachers' => User::teachers()->count(),
+    		'assignments' => 0,
+    	])->withTitle('Home'); 
     } 
     
 }

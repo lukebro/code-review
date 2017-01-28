@@ -20,20 +20,20 @@
   <nav class="level">
   <div class="level-item has-text-centered">
     <div>
-      <p class="heading">Student</p>
-      <p class="title">3,456</p>
+      <p class="heading">Students</p>
+      <p class="title">{{ $students }}</p>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">Teachers</p>
-      <p class="title">123</p>
+      <p class="title">{{ $teachers }}</p>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">Assignements</p>
-      <p class="title">456</p>
+      <p class="title">{{ $assignments }}</p>
     </div>
   </div>
 </nav>

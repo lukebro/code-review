@@ -21,11 +21,15 @@
 
         <div id="app">
 
-            @if (Auth::guest())
-                @include('partials.nav.guest')
-            @else
-                @include('partials.nav.user')
-            @endif
+            @section('nav')
+                @if (Auth::guest())
+                    @include('partials.nav.guest')
+                @else
+                    @include('partials.nav.user')
+                @endif
+            @show
+
+            @include('partials.flash')
 
             @yield('content')
 
