@@ -7,7 +7,7 @@ use GuzzleHttp\ClientInterface;
 use Illuminate\Routing\Redirector;
 use Request;
 
-abstract class GitProvider implements AuthProvider
+abstract class OAuth2Provider implements AuthProvider
 {
     protected $redirector;
 
