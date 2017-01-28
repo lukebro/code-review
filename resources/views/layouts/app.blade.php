@@ -18,11 +18,20 @@
         </script>
     </head>
     <body>
-        @include('partials.nav')
 
-        @yield('content')
+        <div id="app">
 
-        @include('partials.footer')
+            @if (Auth::guest())
+                @include('partials.nav.guest')
+            @else
+                @include('partials.nav.user')
+            @endif
+
+            @yield('content')
+
+            @include('partials.footer')
+
+        </div>
 
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
