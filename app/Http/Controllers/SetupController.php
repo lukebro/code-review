@@ -23,18 +23,24 @@ class SetupController extends Controller
 
     public function index()
     {
-    	 return view('setup.index')->withTitle('Setup your account');
+    	 return view('setup.index', [
+    	 	'user' => Auth::user(),
+    	 ])->withTitle('Setup your account');
     } 
 
     public function setup(Request $request)
     {
     	$this->validate($request, [
     		'type' => 'required|in:teacher,student',
+    		'name' => 'required|string',
+    		'email' => 'required|email',
 		]);
 
-
-		$request->user()->type = $request->type;
-		$request->user()->save();
+		$request->user()->update([
+			'type' => $request->type,
+			'name' => $request->name,
+			'email' => $request->email,
+		]);
 
 		flash()->success("Thanks for setting up your account!");
 
