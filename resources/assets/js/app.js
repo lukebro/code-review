@@ -17,3 +17,5 @@ require('./bootstrap')
 const app = new Vue({
     el: '#app'
 });
+
+$('.flash').delay(5000).slideUp(500);

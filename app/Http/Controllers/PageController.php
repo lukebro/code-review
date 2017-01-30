@@ -18,7 +18,7 @@ class PageController extends Controller
     		'students' => User::students()->count(),
     		'teachers' => User::teachers()->count(),
     		'assignments' => 0,
-    	])->withTitle('Home'); 
+    	])->withTitle('The bridge between coding and teaching'); 
     } 
     
 }

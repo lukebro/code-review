@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ isset($title) ? $title . ' - ' : '' }}{{ config('app.name') }}</title>
-
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+        <title>{{ isset($title) ? $title . ' &ndash; ' : '' }}{{ config('app.name') }}</title>
+        <link rel="icon" href="{{ asset('images/icon.png') }}">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
         <script>

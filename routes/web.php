@@ -21,3 +21,7 @@ Route::post('setup', 'SetupController@setup');
 Route::get('login', 'Auth\GithubController@redirectToProvider')->name('login');
 Route::get('login/callback', 'Auth\GithubController@handleProviderCallback');
 Route::get('logout', 'Auth\GithubController@logout')->name('logout');
+
+// Settings
+Route::get('settings', 'SettingsController@index')->name('settings');
+Route::patch('settings', 'SettingsController@update');

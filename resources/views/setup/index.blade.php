@@ -19,7 +19,7 @@
 						<p class="control">
 						  <input class="input" name="name" type="text" value="{{ $user->name }}" required>
 						</p>
-						<label class="label">You email</label>
+						<label class="label">Your email</label>
 						<p class="control">
 						  <input class="input" type="email" name="email" value="{{ $user->email }}" required>
 						</p>

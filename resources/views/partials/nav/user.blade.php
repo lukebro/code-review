@@ -4,10 +4,10 @@
       <a class="nav-item">
         <img src="{{ asset('images/icon.svg') }}" alt="Code Review">
       </a>
-      <a href="{{ url('dashboard') }}" class="nav-item is-tab is-hidden-mobile is-active">Dashboard</a>
+      <a href="{{ url('dashboard') }}" class="nav-item is-tab is-hidden-mobile {{ Request::is('dashboard*') ? 'is-active' : null }}">Dashboard</a>
     </div>
     <div class="nav-right nav-menu">
-        <a href="#" class="nav-item is-tab">
+        <a href="{{ route('settings') }}" class="nav-item is-tab {{ Request::is('settings*') ? 'is-active' : null }}">
           <figure class="image is-16x16" style="margin-right: 8px;">
             <img src="{{ Auth::user()->avatar_url }}">
           </figure>
