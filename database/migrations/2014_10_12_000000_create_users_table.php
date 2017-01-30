@@ -21,8 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('git_token')->unique()->nullable();
             $table->string('avatar_url')->nullable();
             $table->enum('type', ['student', 'teacher'])->nullable();
+            $table->integer('school_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('school_id')->references('id')->on('schools');
         });
     }
 

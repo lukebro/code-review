@@ -18,4 +18,4 @@ const app = new Vue({
     el: '#app'
 });
 
-$('.flash').delay(5000).slideUp(500);
+$('.flash').delay(3000).slideUp(500);

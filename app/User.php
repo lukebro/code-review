@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'name', 'email', 'git_token', 'type', 'avatar_url',
+        'username', 'name', 'email', 'git_token', 'type', 'avatar_url', 'school_id',
     ];
 
     public function scopeTeachers($query)
@@ -31,5 +31,10 @@ class User extends Authenticatable
     public function isSetup()
     {
     	return ! is_null($this->type);
+    }
+
+    public function school()
+    {
+        return $this->belongsTo(School::class);
     }
 }

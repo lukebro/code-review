@@ -26,6 +26,7 @@ class UpdateSettings extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email',
+            'school_id' => 'required|exists:schools,id'
         ];
     }
 }

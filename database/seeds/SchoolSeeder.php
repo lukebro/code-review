@@ -1,8 +1,9 @@
 <?php
 
+use App\School;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class SchoolSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(SchoolSeeder::class);
+        School::create([
+        	'name' => 'Central Connecticut State University',
+        ]);
     }
 }

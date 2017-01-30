@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateSettings;
+use App\School;
 use Auth;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateSettings;
 
 class SettingsController extends Controller
 {
     public function index()
     {
     	 return view('settings.index', [
-    	 	'user' => Auth::user()
+    	 	'user' => Auth::user(),
+            'schools' => School::all(),
     	 ])->withTitle('Settings');
     } 
 
