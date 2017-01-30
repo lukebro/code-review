@@ -2,7 +2,7 @@
   <div class="container">
     <div class="nav-left">
       <a class="nav-item">
-        <img src="{{ asset('images/logo.svg') }}" alt="Code Review">
+        <img src="{{ asset('images/icon.svg') }}" alt="Code Review">
       </a>
       <a href="{{ url('/') }}" class="nav-item is-tab is-hidden-mobile is-active">Home</a>
     </div>
