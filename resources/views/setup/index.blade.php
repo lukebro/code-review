@@ -4,11 +4,11 @@
 @section('content')
 
 	@component('components.section')
-		<h2 class="title is-2">Setup your account</h2>
-		<p>Finish updating your account.</p>
 		<div class="columns">
-			<div class="column is-6">
-				<form method="POST" class="section form" action="{{ route('setup') }}">
+			<div class="column is-6 is-offset-3">
+				<h2 class="title is-2">Setup your account</h2>
+				<p class="content">Finish updating your account details and settings.</p>
+				<form method="POST" class="form" action="{{ route('setup') }}">
 						@include('partials.errors')
 						@include('settings.form', [
 							'submit' => ''
