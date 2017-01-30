@@ -11,7 +11,7 @@
       <h2 class="subtitle">
         Code review between students and teachers.
       </h2>
-      <p><a href="{{ route('login') }}" class="button is-primary is-inverted is-outlined is-medium"><span class="icon is-medium"><i class="fa fa-github"></i></span><span>Sign up through GitHub</span></a></p>
+      <p><a href="{{ route('login') }}" class="button is-primary is-inverted is-outlined is-medium"><span class="icon is-medium"><i class="fa fa-github"></i></span><span>Sign up with GitHub</span></a></p>
     </div>
   </div>
 </section>
