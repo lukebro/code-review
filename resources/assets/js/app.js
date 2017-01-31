@@ -18,7 +18,7 @@ const app = new Vue({
     el: '#app'
 });
 
-//$('.flash').delay(3000).slideUp(500);
+$('.flash').delay(3000).slideUp(500);
 
 $('.delete').click(function () {
 	$(this).parent().slideUp(500);
