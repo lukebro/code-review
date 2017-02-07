@@ -40,7 +40,7 @@ abstract class OAuth2Provider implements AuthProvider
 
     public function user()
     {
-        $token = $this->requestAccessToken(Request::input('code'));
+        $token = $this->requestAccessToken(request('code'));
 
         $user = $this->getUserByToken($token);
 

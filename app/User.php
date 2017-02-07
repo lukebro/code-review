@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
+use Auth;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -17,15 +18,20 @@ class User extends Authenticatable
     protected $fillable = [
         'username', 'name', 'email', 'git_token', 'type', 'avatar_url', 'school_id',
     ];
+    
+    public function role()
+    {
+        return $this->hasOne($this->type);
+    }
 
     public function scopeTeachers($query)
     {
-    	return $query->where('type', 'teacher');
+    	return $query->where('type', Teacher::class);
     }
 
     public function scopeStudents($query)
     {
-    	return $query->where('type', 'student');
+    	return $query->where('type', Student::class);
     }
 
     public function isSetup()
@@ -36,5 +42,22 @@ class User extends Authenticatable
     public function school()
     {
         return $this->belongsTo(School::class);
+    }
+
+    public function getViewAttribute()
+    {
+        list($namespace, $class) = explode('\\', $this->type);
+
+        return strtolower($class);
+    }
+
+    public function isTeacher()
+    {
+        return $this->type == Teacher::class;
+    }
+
+    public function isStudent()
+    {
+        return $this->type == Student::class;
     }
 }

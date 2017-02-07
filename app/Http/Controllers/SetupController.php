@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\School;
+use App\Student;
+use App\Teacher;
 use Auth;
 use Illuminate\Http\Request;
 use Validator;
@@ -32,6 +34,11 @@ class SetupController extends Controller
 
     public function setup(Request $request)
     {
+        $lookup = [
+            'student' => Student::class,
+            'teacher' => Teacher::class,
+        ];
+
     	$this->validate($request, [
     		'type' => 'required|in:teacher,student',
     		'name' => 'required|string',
@@ -39,12 +46,14 @@ class SetupController extends Controller
     		'school_id' => 'required|exists:schools,id'
 		]);
 
-		$request->user()->update([
-			'type' => $request->type,
+		Auth::user()->update([
+			'type' => $lookup[$request->type],
 			'name' => $request->name,
 			'email' => $request->email,
 			'school_id' => $request->school_id,
 		]);
+
+        Auth::user()->role()->create([]);
 
 		flash()->success("Thanks for setting up your account!");
 

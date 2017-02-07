@@ -74,7 +74,7 @@ class GithubController extends Controller
 	 */
 	protected function findOrCreateUser($user)
 	{
-		$existing = User::where('git_token', $user->git_token)->first();
+		$existing = User::where('github_token', $user->github_token)->first();
 
 		if($existing) {
 			return $existing;
