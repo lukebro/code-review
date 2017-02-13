@@ -40,8 +40,7 @@ class GithubProvider extends OAuth2Provider
 				'username' => $user['login'],
 				'name' => $user['name'],
 				'email' => $user['email'],
-				'github_login' => $user['login'],
-				'github_token' => $user['token'],
+				'git_token' => $user['token'],
 				'avatar_url' => $user['avatar_url'],
 		]);
 	}

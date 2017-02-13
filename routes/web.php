@@ -1,5 +1,10 @@
 <?php
 
+use App\Git\Factories\RepoFactory;
+use App\Git\Repositories\OrgRepository;
+use App\Git\Repositories\RepoRepository;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +15,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('rocky', function (OrgRepository $orgRepo, RepoFactory $factory) {
+
+	$org = $orgRepo->all()->first();
+
+	dd($factory->create([
+		'name' => 'hello this is a test',
+		'org' => $org->name,
+	]));
+
+
+});
 
 Route::get('/', 'PageController@home');
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
