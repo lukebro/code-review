@@ -21,10 +21,10 @@
 			</nav>
 		</div>
 
-		<h1 class="title">Current Active Classrooms</h1>
+		<h1 class="title">Current Classrooms</h1>
 
 		<div class="columns is-multiline">
-			@if ($classrooms->isEmpty())
+			@if ($classrooms->isEmpty() && $pendings->isEmpty())
 				<p>You're not in any classrooms.</p>
 			@else
 				@foreach ($classrooms as $classroom)
@@ -32,11 +32,25 @@
 					<div class="card">
 						<header class="card-header">
 							<p class="card-header-title">
-							{{ $classroom->name }} ({{ $classroom->course }})
+							{{ $classroom->name }}
 							</p>
 						</header>
 						<footer class="card-footer">
 							<a class="card-footer-item">View</a>
+						</footer>						
+					</div>
+				</div>
+				@endforeach
+				@foreach ($pendings as $pending)
+				<div class="column is-3">
+					<div class="card">
+						<header class="card-header">
+							<p class="card-header-title">
+							{{ $pending->classroom->name }}
+							</p>
+						</header>
+						<footer class="card-footer">
+							<span class="card-footer-item">Pending</span>
 						</footer>						
 					</div>
 				</div>

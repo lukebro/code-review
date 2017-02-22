@@ -15,14 +15,10 @@
 		</div>
 
 		<div class="container content">
-			<h1 class="title">Classrooms</h1>
+			<h1 class="title">Dashboard</h1>
 	
 			<div class="columns is-multiline">
-			@foreach ($classrooms as $classroom)
-				<div class="column is-3">
-					@component('components.classroom-tile', ['classroom' => $classroom])@endcomponent
-				</div>
-			@endforeach
+				<div class="column">For now, nothing.</div>
 			</div>
 		</div>
 	</section>

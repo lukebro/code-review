@@ -22,13 +22,5 @@ abstract class GitHubFactory {
 	{
 		$this->client = $client;
 	}
-	
-	/**
-	 * Map the attribtues from the Api to an actual object.
-	 * 
-	 * @param  array  $attribtues
-	 * @return object
-	 */
-	abstract protected function mapToObject(array $attribtues);
 
 }

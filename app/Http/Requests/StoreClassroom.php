@@ -25,7 +25,6 @@ class StoreClassroom extends FormRequest
     public function rules()
     {
         return [
-            'course' => 'required|string',
             'name' => 'required|string'
         ];
     }

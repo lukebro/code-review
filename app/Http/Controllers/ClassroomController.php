@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\Classroom;
+use App\Git\Factories\OrgFactory;
+use App\Git\Repositories\OrgRepository;
 use App\Http\Requests\StoreClassroom;
+use App\PendingMember;
+use Auth;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
@@ -30,9 +33,13 @@ class ClassroomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(OrgRepository $orgRepo)
     {
-        return view('teacher.classroom.create')->withTitle('Create Classroom');
+        $orgs = $orgRepo->new();
+
+        return view($orgs->isEmpty() ? 'teacher.classroom.empty-create' : 'teacher.classroom.create', [
+            'orgs' => $orgs
+        ])->withTitle('Create Classroom');
     }
 
     /**
@@ -43,9 +50,9 @@ class ClassroomController extends Controller
      */
     public function store(StoreClassroom $request)
     {
-        $classroom = Auth::user()->role->classrooms()->create(request(['name', 'course']) + [
-            'open' => true, 
-            'code' => strtoupper(str_random(5))
+        $classroom = Auth::user()->role->classrooms()->create([
+            'name' => request('name'),
+            'code' => $this->randomCode()
         ]);
 
         return redirect()->route('classroom.show', $classroom->id);
@@ -96,5 +103,41 @@ class ClassroomController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function handlePending(Classroom $classroom, OrgFactory $orgFactory)
+    {
+        if (request()->has('deny')) {
+            PendingMember::findOrFail(request('deny'))->delete();
+            flash()->success('You\'ve denied access!');
+
+            return redirect()->back();
+        }
+
+
+        $pending = PendingMember::findOrFail(request('accept'));
+
+        if ($classroom->id != $pending->classroom_id) {
+            return redirect()->back();
+        }
+
+        $classroom->students()->attach($pending->user);
+        $orgFactory->join($classroom->name, $pending->user->username);
+        
+        $pending->delete();
+        flash()->success('Accepted the request to join classroom.');
+
+        return redirect()->back();
+
+    }
+
+    protected function randomCode()
+    {
+        do {
+            $code = strtoupper(str_random(5));
+            $classroom = Classroom::where('code', $code)->get();
+        } while (! $classroom->isEmpty());
+
+        return $code;
     }
 }

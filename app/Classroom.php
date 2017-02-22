@@ -3,14 +3,13 @@
 namespace App;
 
 use App\User;
+use App\PendingMember;
 use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
 {
     protected $fillable = [
-    	'course',
-    	'name',
-    	'open',
+        'name',
     	'code',
     ];
 
@@ -22,5 +21,10 @@ class Classroom extends Model
     public function students()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function pendings()
+    {
+    	return $this->hasMany(PendingMember::class);
     }
 }

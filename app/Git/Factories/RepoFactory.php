@@ -14,9 +14,4 @@ class RepoFactory extends GitHubFactory {
 		return $this->client->api('repo')->create($name, $description, '', ! $private, $org);
 	}
 
-	public function mapToObject(array $attributes)
-	{
-
-	}
-
 }

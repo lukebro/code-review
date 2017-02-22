@@ -2,6 +2,7 @@
 
 namespace App\Git\Repositories;
 
+use Auth;
 use App\Git\Org;
 
 class OrgRepository extends GitHubRepository {
@@ -17,6 +18,13 @@ class OrgRepository extends GitHubRepository {
 			'id' => $attributes['id'],
 			'name' => $attributes['login'],
 		]);
+	}
+
+	public function new()
+	{
+		return $this->all()->filter(function ($org) {
+			return Auth::user()->role->classrooms()->where('name', $org->name)->first() == null;
+		});
 	}
 
 }

@@ -33,9 +33,8 @@ class GitServiceProvider extends ServiceProvider
             return new GitHubProvider($app['redirect'], new Client, env('GITHUB_ID'), env('GITHUB_SECRET'));
         });
 
-        $this->app->bind(GitHubClient::class, function () {
+        $this->app->bind(GitHubClient::class, function ($pp) {
             $client = new GitHubClient();
-            
             $client->authenticate(Auth::user()->git_token, null, GitHubClient::AUTH_HTTP_TOKEN);
 
             return $client;

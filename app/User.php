@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\PendingMember;
 use Auth;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,6 +23,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->hasOne($this->type);
+    }
+
+    public function pending()
+    {
+        return $this->hasMany(PendingMember::class);
     }
 
     public function scopeTeachers($query)
