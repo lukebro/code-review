@@ -1,23 +1,21 @@
 <?php
 
-namespace App\Git;
+namespace App\Git\Resources;
 
-use App\Git\AbstractGitResource;
-
-class Org extends AbstractGitResource {
+class Organization extends AbstractGitResource {
 
 	/**
 	 * ID of the organization.
-	 * 
+	 *
 	 * @var int
 	 */
 	public $id;
 
 	/**
 	 * Name of the organization.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $name;
-	
+
 }

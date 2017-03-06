@@ -14,14 +14,14 @@ class GithubController extends Controller
 
 	/**
 	 * Authentication provider for Git.
-	 * 
+	 *
 	 * @var AuthProvider
 	 */
 	protected $provider;
 
 	/**
 	 * Create a new instance of the controller.
-	 * 
+	 *
 	 * @param AuthProvider $provider
 	 */
 	public function __construct(AuthProvider $provider)
@@ -33,7 +33,7 @@ class GithubController extends Controller
 
 	/**
 	 * Redirect to provider for OAuth.
-	 * 
+	 *
 	 * @return redirect
 	 */
 	public function redirectToProvider()
@@ -43,7 +43,7 @@ class GithubController extends Controller
 
 	/**
 	 * Handle the callback from provider.
-	 * 
+	 *
 	 * @return redirect
 	 */
 	public function handleProviderCallback()
@@ -57,7 +57,7 @@ class GithubController extends Controller
 
 	/**
 	 * Logout the current logged in user.
-	 * 
+	 *
 	 * @return redirect
 	 */
 	public function logout()
@@ -74,7 +74,7 @@ class GithubController extends Controller
 	 */
 	protected function findOrCreateUser($user)
 	{
-		$existing = User::where('github_token', $user->github_token)->first();
+		$existing = User::where('git_token', $user->git_token)->first();
 
 		if($existing) {
 			return $existing;
@@ -84,6 +84,6 @@ class GithubController extends Controller
 
 		return $user;
 	}
-	
+
 
 }

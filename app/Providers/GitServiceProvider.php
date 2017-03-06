@@ -4,8 +4,7 @@ namespace App\Providers;
 
 use Auth;
 use GuzzleHttp\Client;
-use Github\Client as GithubClient;
-use App\Git\Providers\GithubProvider;
+use App\Git\Providers\GithubAuthProvider;
 use Illuminate\Support\ServiceProvider;
 use App\Git\Providers\Contracts\AuthProvider;
 
@@ -30,14 +29,14 @@ class GitServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(AuthProvider::class, function ($app) {
-            return new GitHubProvider($app['redirect'], new Client, env('GITHUB_ID'), env('GITHUB_SECRET'));
+            return new GitHubAuthProvider($app['redirect'], new Client, env('GITHUB_ID'), env('GITHUB_SECRET'));
         });
 
-        $this->app->bind(GitHubClient::class, function ($pp) {
-            $client = new GitHubClient();
-            $client->authenticate(Auth::user()->git_token, null, GitHubClient::AUTH_HTTP_TOKEN);
+        // $client->authenticate(Auth::user()->git_token, null, GitHubClient::AUTH_HTTP_TOKEN);
+        // $this->app->bind(GitHubClient::class, function ($pp) {
+        //     $client = new GitHubClient();
 
-            return $client;
-        });
+        //     return
+        // });
     }
 }

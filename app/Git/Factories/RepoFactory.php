@@ -6,12 +6,13 @@ class RepoFactory extends GitHubFactory {
 
 	public function create(array $attributes)
 	{
-		$name = array_get($attributes, 'name');
-		$description = array_get($attributes, 'description', '');
-		$private = array_get($attributes, 'private', false);
-		$org = array_get($attributes, 'org', null);
-
-		return $this->client->api('repo')->create($name, $description, '', ! $private, $org);
+		return $this->client->api('repo')->create(
+            array_get($attributes, 'name'),
+            array_get($attributes, 'description', ''),
+            '',
+            ! array_get($attributes, 'private', false),
+            array_get($attributes, 'organization', null)
+        );
 	}
 
 }

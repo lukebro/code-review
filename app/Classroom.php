@@ -10,7 +10,7 @@ class Classroom extends Model
 {
     protected $fillable = [
         'name',
-    	'code',
+    	'token',
     ];
 
     public function user()

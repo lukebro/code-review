@@ -5,7 +5,7 @@ namespace App\Git\Providers;
 use App\Git\Providers\Contracts\AuthProvider;
 use App\User;
 
-class GithubProvider extends OAuth2Provider
+class GithubAuthProvider extends OAuth2Provider
 {
 
 	protected function getAuthorizationUrl()

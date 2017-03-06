@@ -17,7 +17,7 @@ class CreateClassroomsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('name');
-            $table->string('code');
+            $table->string('token', 20);
             $table->timestamps();
         });
     }

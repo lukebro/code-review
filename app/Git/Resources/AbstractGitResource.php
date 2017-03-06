@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Git;
+namespace App\Git\Resources;
 
 use ArrayAccess;
 

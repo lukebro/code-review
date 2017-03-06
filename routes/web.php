@@ -1,5 +1,20 @@
 <?php
 
+use App\Git\GitHub;
+
+Route::get('rocky', function (GitHub $client) {
+
+    $repository = $client->repository();
+
+    $ok = $repository->create([
+        'name' => 'hey',
+        'description' => 'This is test!!',
+        'organization' => 'lukebro-test',
+    ]);
+
+    dd($ok);
+});
+
 Route::get('/', 'PageController@home');
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 

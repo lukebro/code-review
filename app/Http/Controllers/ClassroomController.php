@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Classroom;
 use App\Git\Factories\OrgFactory;
+use App\Git\GitHub;
 use App\Git\Repositories\OrgRepository;
 use App\Http\Requests\StoreClassroom;
 use App\PendingMember;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ClassroomController extends Controller
 {
@@ -33,9 +35,11 @@ class ClassroomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(OrgRepository $orgRepo)
+    public function create(GitHub $api)
     {
-        $orgs = $orgRepo->new();
+        $orgs =  $api->organization()->all()->filter(function ($org) {
+            return ! Auth::user()->role->classrooms()->where('name', $org->name)->exists();
+        });
 
         return view($orgs->isEmpty() ? 'teacher.classroom.empty-create' : 'teacher.classroom.create', [
             'orgs' => $orgs
@@ -52,7 +56,7 @@ class ClassroomController extends Controller
     {
         $classroom = Auth::user()->role->classrooms()->create([
             'name' => request('name'),
-            'code' => $this->randomCode()
+            'token' => Str::random(20)
         ]);
 
         return redirect()->route('classroom.show', $classroom->id);
@@ -123,21 +127,11 @@ class ClassroomController extends Controller
 
         $classroom->students()->attach($pending->user);
         $orgFactory->join($classroom->name, $pending->user->username);
-        
+
         $pending->delete();
         flash()->success('Accepted the request to join classroom.');
 
         return redirect()->back();
 
-    }
-
-    protected function randomCode()
-    {
-        do {
-            $code = strtoupper(str_random(5));
-            $classroom = Classroom::where('code', $code)->get();
-        } while (! $classroom->isEmpty());
-
-        return $code;
     }
 }
