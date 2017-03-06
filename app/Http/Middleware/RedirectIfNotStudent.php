@@ -17,7 +17,7 @@ class RedirectIfNotStudent
     public function handle($request, Closure $next)
     {
         if (! Auth::user()->isStudent()) {
-            return redirect('dashboard');
+            return redirect('classrooms');
         }
 
         return $next($request);

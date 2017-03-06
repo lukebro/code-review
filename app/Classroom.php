@@ -27,4 +27,9 @@ class Classroom extends Model
     {
     	return $this->hasMany(PendingMember::class);
     }
+
+    public function getUrlAttribute()
+    {
+        return url('/classrooms/join/' . $this->token);
+    }
 }

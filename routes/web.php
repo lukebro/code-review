@@ -1,6 +1,11 @@
 <?php
 
 use App\Git\GitHub;
+use App\User;
+
+Route::get('ok', function () {
+    Auth::login(User::find(1));
+});
 
 Route::get('rocky', function (GitHub $client) {
 
@@ -15,15 +20,13 @@ Route::get('rocky', function (GitHub $client) {
     dd($ok);
 });
 
-Route::get('/', 'PageController@home');
-Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/', 'PagesController@home');
 
 Route::get('setup', 'SetupController@index')->name('setup');
 Route::post('setup', 'SetupController@setup');
 
-Route::resource('classroom', 'ClassroomController');
-Route::post('classroom/join', 'DashboardController@join')->name('classroom.join');
-Route::post('classroom/{classroom}/pending', 'ClassroomController@handlePending')->name('classroom.pending');
+Route::resource('classrooms', 'ClassroomsController');
+Route::get('classrooms/join/{token}', 'ClassroomsController@join')->name('classrooms.join');
 
 // Auth
 Route::get('login', 'Auth\GithubController@redirectToProvider')->name('login');

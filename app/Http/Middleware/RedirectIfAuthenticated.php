@@ -2,11 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Student;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
+
     /**
      * Handle an incoming request.
      *
@@ -19,8 +21,7 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
 
-            dd(Auth::user());
-            return redirect('dashboard');
+            return redirect('classrooms');
         }
 
         return $next($request);

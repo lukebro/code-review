@@ -52,7 +52,7 @@ class GithubController extends Controller
 
 	    Auth::login($this->findOrCreateUser($user), true);
 
-		return redirect('/dashboard');
+		return redirect('classrooms');
 	}
 
 	/**
@@ -74,7 +74,7 @@ class GithubController extends Controller
 	 */
 	protected function findOrCreateUser($user)
 	{
-		$existing = User::where('git_token', $user->git_token)->first();
+		$existing = User::where('username', $user->username)->first();
 
 		if($existing) {
 			return $existing;

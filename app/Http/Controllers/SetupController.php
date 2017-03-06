@@ -17,7 +17,7 @@ class SetupController extends Controller
 		 $this->middleware(function ($request, $next) {
 
 		 	if ($request->user()->isSetup()) {
-		 		return redirect('dashboard');
+		 		return redirect('classrooms');
 		 	}
 
             return $next($request);
@@ -30,7 +30,7 @@ class SetupController extends Controller
     	 	'user' => Auth::user(),
     	 	'schools' => School::all(),
     	 ])->withTitle('Setup your account');
-    } 
+    }
 
     public function setup(Request $request)
     {
@@ -57,7 +57,7 @@ class SetupController extends Controller
 
 		flash()->success("Thanks for setting up your account!");
 
-		return redirect()->route('dashboard');
+		return redirect('classrooms');
     }
-    
+
 }

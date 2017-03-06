@@ -3,6 +3,7 @@
 namespace App\Git\Api;
 
 use App\Git\Resources\Organization as OrganizationResource;
+use App\User;
 
 class Organization extends AbstractGitApi {
 
@@ -13,9 +14,9 @@ class Organization extends AbstractGitApi {
 		});
 	}
 
-	public function join($organization)
+	public function join($organization, User $joinee)
 	{
-		return $this->client->api('members')->add($organization, $this->user->username);
+		return $this->client->api('members')->add($organization, $joinee->username);
 	}
 
 	public function mapToResource(array $attributes)

@@ -12,12 +12,16 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class ClassroomController extends Controller
+class ClassroomsController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware(['auth', 'setup', 'teacher']);
+        $this->middleware(['auth', 'setup']);
+
+        $this->middleware('teacher', ['except' => ['index', 'join', 'show']]);
+
+        $this->middleware('student', ['only' => 'join']);
     }
 
     /**
@@ -27,7 +31,10 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        //
+        return view(Auth::user()->view . '.classrooms.index', [
+            'user' => Auth::user(),
+            'classrooms' => Auth::user()->role->classrooms,
+         ])->withTitle('Classrooms');
     }
 
     /**
@@ -41,7 +48,7 @@ class ClassroomController extends Controller
             return ! Auth::user()->role->classrooms()->where('name', $org->name)->exists();
         });
 
-        return view($orgs->isEmpty() ? 'teacher.classroom.empty-create' : 'teacher.classroom.create', [
+        return view($orgs->isEmpty() ? 'teacher.classrooms.empty-create' : 'teacher.classrooms.create', [
             'orgs' => $orgs
         ])->withTitle('Create Classroom');
     }
@@ -59,7 +66,7 @@ class ClassroomController extends Controller
             'token' => Str::random(20)
         ]);
 
-        return redirect()->route('classroom.show', $classroom->id);
+        return redirect()->route('classrooms.show', $classroom->id);
     }
 
     /**
@@ -70,7 +77,7 @@ class ClassroomController extends Controller
      */
     public function show(Classroom $classroom)
     {
-        return view('teacher.classroom.show', [
+        return view(Auth::user()->view . '.classrooms.show', [
             'classroom' => $classroom,
         ])->withTitle($classroom->name);
     }
@@ -109,29 +116,23 @@ class ClassroomController extends Controller
         //
     }
 
-    public function handlePending(Classroom $classroom, OrgFactory $orgFactory)
+    public function join($token)
     {
-        if (request()->has('deny')) {
-            PendingMember::findOrFail(request('deny'))->delete();
-            flash()->success('You\'ve denied access!');
+        $classroom = Classroom::where('token', $token)->first();
 
-            return redirect()->back();
+        if(! $classroom) {
+            flash()->danger('Classroom does not exist, check the invitation link.');
+            return redirect()->route('classrooms.index');
         }
 
-
-        $pending = PendingMember::findOrFail(request('accept'));
-
-        if ($classroom->id != $pending->classroom_id) {
-            return redirect()->back();
+        if (Auth::user()->role->classrooms->contains($classroom)) {
+            flash()->warning('You\'re already part of this classroom silly.');
+            return redirect()->route('classrooms.index');
         }
 
-        $classroom->students()->attach($pending->user);
-        $orgFactory->join($classroom->name, $pending->user->username);
+        $classroom->students()->attach(Auth::user());
+        flash()->success('You\'ve joined the class "' . $classroom->name . '".');
 
-        $pending->delete();
-        flash()->success('Accepted the request to join classroom.');
-
-        return redirect()->back();
-
+        return redirect()->route('classrooms.show', $classroom->id);
     }
 }

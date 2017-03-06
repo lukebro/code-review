@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
-class PageController extends Controller
+class PagesController extends Controller
 {
 	public function __construct()
 	{
@@ -18,7 +18,7 @@ class PageController extends Controller
     		'students' => User::students()->count(),
     		'teachers' => User::teachers()->count(),
     		'assignments' => 0,
-    	])->withTitle('The bridge between coding and teaching'); 
-    } 
-    
+    	])->withTitle('The bridge between coding and teaching');
+    }
+
 }

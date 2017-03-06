@@ -7,7 +7,7 @@
 			<div class="column is-6 is-offset-3">
 				<h2 class="title is-2">Create a classroom</h2>
 				@include('partials.errors')
-				<form method="POST" class="form" action="{{ route('classroom.store') }}">
+				<form method="POST" class="form" action="{{ route('classrooms.store') }}">
 						{{ csrf_field() }}
 						<p class="control">In order to create a classroom, you must have a GitHub Organization created for your class.</p>
 						<label class="label">GitHub Organization</label>
