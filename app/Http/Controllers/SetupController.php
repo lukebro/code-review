@@ -57,7 +57,7 @@ class SetupController extends Controller
 
 		flash()->success("Thanks for setting up your account!");
 
-		return redirect('classrooms');
+		return redirect(session('previous_path', 'classrooms'));
     }
 
 }

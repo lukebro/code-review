@@ -2,8 +2,9 @@
 
 namespace App;
 
-use App\User;
+use App\Assignment;
 use App\PendingMember;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
@@ -26,6 +27,11 @@ class Classroom extends Model
     public function pendings()
     {
     	return $this->hasMany(PendingMember::class);
+    }
+
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class);
     }
 
     public function getUrlAttribute()

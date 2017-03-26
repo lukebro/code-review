@@ -1,25 +1,5 @@
 <?php
 
-use App\Git\GitHub;
-use App\User;
-
-Route::get('ok', function () {
-    Auth::login(User::find(1));
-});
-
-Route::get('rocky', function (GitHub $client) {
-
-    $repository = $client->repository();
-
-    $ok = $repository->create([
-        'name' => 'hey',
-        'description' => 'This is test!!',
-        'organization' => 'lukebro-test',
-    ]);
-
-    dd($ok);
-});
-
 Route::get('/', 'PagesController@home');
 
 Route::get('setup', 'SetupController@index')->name('setup');
@@ -27,6 +7,11 @@ Route::post('setup', 'SetupController@setup');
 
 Route::resource('classrooms', 'ClassroomsController');
 Route::get('classrooms/join/{token}', 'ClassroomsController@join')->name('classrooms.join');
+
+Route::group(['prefix' => 'classrooms/{classroom}'], function () {
+	Route::resource('assignments', 'AssignmentsController');
+});
+
 
 // Auth
 Route::get('login', 'Auth\GithubController@redirectToProvider')->name('login');

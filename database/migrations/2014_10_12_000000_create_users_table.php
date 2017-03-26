@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('git_token')->unique();
             $table->string('avatar_url')->nullable();
-            $table->enum('type', ['student', 'teacher'])->nullable();
+            $table->string('type')->nullable();
             $table->integer('school_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
