@@ -8,7 +8,7 @@
 				{{ $classroom->name }}
 			@endslot
 
-			<div class="level-item"><a href="{{ route('assignments.create', $classroom->id) }}" class="button is-primary">Create assignement</a></div>
+			<div class="level-item"><a href="{{ route('assignments.create', $classroom->id) }}" class="button is-primary">Create assignment</a></div>
 			<div class="level-item"><button @click="$emit('modal', 'gradebook')" class="button is-primary">Gradebook</button></div>
 			<div class="level-item"><a href="#" class="button"><span class="icon is-medium"><i class="fa fa-gear"></i></span></a></div>
 			<div class="level-item"><a target="_blank" href="https://github.com/{{ $classroom->org }}" class="button"><span class="icon is-medium"><i class="fa fa-github"></i></span></a></div>
