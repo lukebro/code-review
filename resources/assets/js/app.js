@@ -22,3 +22,5 @@ $('.flash.delete').click(function () {
 
     return false;
 });
+
+autosize($('textarea'));
