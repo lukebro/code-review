@@ -8,7 +8,7 @@ const app = new Vue({
 
 $('.flash').delay(3000).slideUp(500);
 
-$('.notification .delete').click(function () {
+$('.flash.delete').click(function () {
 	$(this).parent().slideUp(500);
 
     return false;
