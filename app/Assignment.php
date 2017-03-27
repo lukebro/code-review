@@ -23,7 +23,7 @@ class Assignment extends Model
 
     public function checkpoints()
     {
-    	return $this->hasMany(Checkpoint::class)->latest('due_at');
+    	return $this->hasMany(Checkpoint::class)->orderBy('due_at');
     }
 
     public function getNextDueAttribute()

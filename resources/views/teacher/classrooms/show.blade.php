@@ -27,7 +27,7 @@
 									<p>
 										<div class="title"><a href="{{ route('assignments.show', [$classroom->id, $assignment->id]) }}">{{ $assignment->name }}</a></div>
 										<small>Next due date:
-											@if ($assignment->nextDueDate->diffInWeeks(Carbon\Carbon::now()) < 1)
+											@if ($assignment->nextDueDate->diffInDays(Carbon\Carbon::now()) < 1)
 												<strong>{{ $assignment->nextDueDate->diffForHumans() }}</strong>
 											@else
 												{{ $assignment->nextDueDate->toDayDateTimeString() }}
