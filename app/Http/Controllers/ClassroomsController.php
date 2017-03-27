@@ -45,7 +45,7 @@ class ClassroomsController extends Controller
     public function create(GitHub $api)
     {
         $orgs =  $api->organization()->all()->filter(function ($org) {
-            return ! Auth::user()->role->classrooms()->where('name', $org->name)->exists();
+            return ! Auth::user()->role->classrooms()->where('org', $org->name)->exists();
         });
 
         return view($orgs->isEmpty() ? 'teacher.classrooms.empty-create' : 'teacher.classrooms.create', [

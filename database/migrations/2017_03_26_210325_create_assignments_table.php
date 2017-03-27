@@ -19,6 +19,7 @@ class CreateAssignmentsTable extends Migration
             $table->string('prefix');
             $table->boolean('public');
             $table->integer('classroom_id')->unsigned();
+            $table->text('description')->nullable();
             $table->timestamps();
 
             $table->foreign('classroom_id')->references('id')->on('classrooms');

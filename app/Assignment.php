@@ -12,6 +12,7 @@ class Assignment extends Model
     	'name',
     	'prefix',
     	'public',
+        'description',
     	'classroom_id',
     ];
 
@@ -22,6 +23,16 @@ class Assignment extends Model
 
     public function checkpoints()
     {
-    	return $this->hasMany(Checkpoint::class);
+    	return $this->hasMany(Checkpoint::class)->latest('due_at');
+    }
+
+    public function getNextDueAttribute()
+    {
+        return $this->checkpoints()->first();
+    }
+
+    public function getNextDueDateAttribute()
+    {
+        return $this->nextDue->due_at;
     }
 }

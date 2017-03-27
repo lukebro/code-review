@@ -20,9 +20,21 @@
 					@if ($classroom->assignments->isEmpty())
 						<div class="panel-block"><p>No assignments exist yet.</p></div>
 					@else
-						@foreach ($classroom->assignments->sortByDesc('created_at') as $assignment)
+						@foreach ($classroom->assignments as $assignment)
 							<div class="panel-block">
-								<a href="{{ route('assignments.show', [$classroom->id, $assignment->id]) }}">{{ $assignment->name }}</a>
+								<div class="content">
+									<p>
+										<a href="{{ route('assignments.show', [$classroom->id, $assignment->id]) }}">{{ $assignment->name }}</a>
+										<br>
+										<small>Next due date:
+											@if ($assignment->nextDueDate->diffInWeeks(Carbon\Carbon::now()) < 1)
+												<strong>{{ $assignment->nextDueDate->diffForHumans() }}</strong>
+											@else
+												{{ $assignment->nextDueDate->toDayDateTimeString() }}
+											@endif
+										</small>
+									</p>
+								</div>
 							</div>
 						@endforeach
 					@endif

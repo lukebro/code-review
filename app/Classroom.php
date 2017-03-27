@@ -32,7 +32,7 @@ class Classroom extends Model
 
     public function assignments()
     {
-        return $this->hasMany(Assignment::class);
+        return $this->hasMany(Assignment::class)->latest();
     }
 
     public function getUrlAttribute()

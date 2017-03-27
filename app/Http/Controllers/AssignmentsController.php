@@ -6,6 +6,8 @@ use App\Assignment;
 use App\Classroom;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use cebe\markdown\GithubMarkdown;
+
 
 class AssignmentsController extends Controller
 {
@@ -30,11 +32,19 @@ class AssignmentsController extends Controller
      */
     public function store(Classroom $classroom, Request $request)
     {
-        $assignment = $classroom->assignments()->create(request([
+        $attributes = request([
             'name',
             'prefix',
-            'public'
-        ]));
+            'public',
+            'description',
+        ]);
+
+        if ($attributes['description'] != '') {
+            $parser = new GithubMarkdown();
+            $attributes['description'] = $parser->parse($attributes['description']);
+        }
+
+        $assignment = $classroom->assignments()->create($attributes);
 
         foreach(request('checkpoint') as $checkpoint) {
             $assignment->checkpoints()->create([

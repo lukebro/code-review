@@ -22,7 +22,9 @@
 		<div class="columns">
 			<div class="column">
 
-				<p>📝</p>
+				@if ($assignment->description)
+					<div class="box"><p>{!! $assignment->description !!}</p></div>
+				@endif
 
 			</div>
 
