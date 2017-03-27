@@ -31,9 +31,10 @@
 						</div>
 						<div class="field">
 							<p class="control">
-								<label class="radio"><input type="radio" name="public" value="1" checked required><span class="label">Public</span></label>
-								<label class="radio"><input type="radio" name="public" value="0" required><span class="label">Private</span></label>
+								<label class="button radio"><input type="radio" name="public" value="1" checked required><strong>Public Repositories</strong></label>
+								<label class="button radio"><input type="radio" name="public" value="0" required><strong>Private Repositories<em>*</em></strong></label>
 							</p>
+							<p class="help"><em>*Private Repositories require a paid GitHub organization plan.</em></p>
 						</div>
 						<div class="field">
 							<label class="label">Description</label>

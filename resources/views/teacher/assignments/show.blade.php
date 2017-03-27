@@ -14,7 +14,7 @@
 				{{ $assignment->name }}
 			@endslot
 
-			<div class="level-item"><a href="#" class="button is-primary">Gradebook</a></div>
+			<div class="level-item"><a href="#" class="button"><span class="icon is-medium"><i class="fa fa-gear"></i></span></a></div>
 			<div class="level-item"><a href="{{ route('classrooms.show', $classroom->id) }}" class="button">Back</a></div>
 		@endcomponent
 

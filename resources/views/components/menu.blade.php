@@ -4,8 +4,9 @@
 	  	<div class="level-item">
 	      <h3 class="title is-3">
 	        <strong>{{ $title }}</strong>
-
-          {{ isset($subtitle) ? ' &ndash; ' . $subtitle : '' }}
+          @if (isset($subtitle))
+            <small>&ndash; {{ $subtitle }}</small>
+          @endif
 	      </h3>
 	    </div>
     @endif

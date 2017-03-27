@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
 {
-	protected $primaryKey = 'user_id';   
+	protected $primaryKey = 'user_id';
 
 	public function user()
 	{
@@ -15,6 +15,6 @@ class Teacher extends Model
 
 	public function classrooms()
     {
-        return $this->hasMany(Classroom::class, 'user_id');
+        return $this->hasMany(Classroom::class, 'user_id')->latest();
     }
 }

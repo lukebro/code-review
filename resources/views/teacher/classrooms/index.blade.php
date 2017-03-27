@@ -18,7 +18,16 @@
                 @else
                     @foreach ($classrooms as $classroom)
                     <div class="panel-block">
-                        <a href="{{ route('classrooms.show', $classroom->id) }}">{{ $classroom->name }}</a>
+                        <div class="content">
+                            <p>
+                                <div class="title"><a href="{{ route('classrooms.show', $classroom->id) }}">{{ $classroom->name }}</a> <small>&ndash; {{ $classroom->org }}</small></div>
+                                <small>
+                                    Assignments &ndash; <strong>{{ $classroom->assignments()->count() }}</strong>
+                                    <br>
+                                    Students &ndash; <strong>{{ $classroom->students()->count() }}</strong>
+                                </small>
+                            </p>
+                        </div>
                     </div>
                     @endforeach
                 @endif
