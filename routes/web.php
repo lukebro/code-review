@@ -9,7 +9,9 @@ Route::resource('classrooms', 'ClassroomsController');
 Route::get('classrooms/join/{token}', 'ClassroomsController@join')->name('classrooms.join');
 
 Route::group(['prefix' => 'classrooms/{classroom}'], function () {
-	Route::resource('assignments', 'AssignmentsController');
+	Route::resource('assignments', 'AssignmentsController', ['except' => [
+		'index'
+	]]);
 });
 
 

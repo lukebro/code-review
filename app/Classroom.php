@@ -11,6 +11,7 @@ class Classroom extends Model
 {
     protected $fillable = [
         'name',
+        'org',
     	'token',
     ];
 

@@ -63,6 +63,7 @@ class ClassroomsController extends Controller
     {
         $classroom = Auth::user()->role->classrooms()->create([
             'name' => request('name'),
+            'org' => request('org'),
             'token' => Str::random(20)
         ]);
 

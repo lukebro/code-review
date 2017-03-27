@@ -12,10 +12,16 @@
 						{{ csrf_field() }}
 
 						<div class="field">
+							<label class="label">Name</label>
+							<p class="control">
+								<input type="text" class="input" name="name" autocomplete="off" placeholder="Class course/name" required>
+							</p>
+						</div>
+						<div class="field">
 							<label class="label">GitHub Organization</label>
 							<p class="control">
 								<span class="select">
-								<select name="name" required>
+								<select name="org" required>
 									<option value="">Select organization...</option>
 									@foreach ($orgs as $org)
 										<option value="{{ $org->name }}">{{ $org->name }}</option>
@@ -25,9 +31,12 @@
 							</p>
 						</div>
 						<div class="field">
-							<p class="control"><button type="submit" class="button is-primary">Create Classroom</button></p>
+							<p class="control"><button type="submit" class="button is-primary">Create classroom</button></p>
 						</div>
-						<p class="control">If you don't see you organization here, you have to <a target="_blank" href="https://github.com/settings/connections/applications/{{ env('GITHUB_ID') }}">grant us access</a>.</p>
+						<p class="control">
+							<span class="tag is-success">Tip!</span>
+							If you don't see you organization here, you have to <a target="_blank" href="https://github.com/settings/connections/applications/{{ env('GITHUB_ID') }}">grant us access</a>.
+						</p>
 				</form>
 			</div>
 		</div>

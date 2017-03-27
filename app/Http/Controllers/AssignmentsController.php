@@ -2,20 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Assignment;
 use App\Classroom;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AssignmentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -37,11 +30,18 @@ class AssignmentsController extends Controller
      */
     public function store(Classroom $classroom, Request $request)
     {
-        $classroom->assignments()->create(request([
+        $assignment = $classroom->assignments()->create(request([
             'name',
             'prefix',
             'public'
         ]));
+
+        foreach(request('checkpoint') as $checkpoint) {
+            $assignment->checkpoints()->create([
+                'name' => $checkpoint['name'],
+                'due_at' => Carbon::parse($checkpoint['due_at'])
+            ]);
+        }
 
         flash()->success('Assignment ' . request('name') . ' has been created successfully!');
 
@@ -54,9 +54,12 @@ class AssignmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Classroom $classroom, Assignment $assignment)
     {
-        //
+        return view('teacher.assignments.show', [
+            'classroom' => $classroom,
+            'assignment' => $assignment
+        ])->withTitle($assignment->name);
     }
 
     /**

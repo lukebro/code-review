@@ -10,6 +10,7 @@
 
 			<div class="level-item"><a href="{{ route('assignments.create', $classroom->id) }}" class="button is-primary">Create assignement</a></div>
 			<div class="level-item"><a href="#" class="button is-primary">Gradebook</a></div>
+			<div class="level-item"><a target="_blank" href="https://github.com/{{ $classroom->org }}" class="button"><span class="icon is-medium"><i class="fa fa-github"></i></span></a></div>
 		@endcomponent
 
 		<div class="columns">
@@ -21,7 +22,7 @@
 					@else
 						@foreach ($classroom->assignments->sortByDesc('created_at') as $assignment)
 							<div class="panel-block">
-								{{ $assignment->name }}
+								<a href="{{ route('assignments.show', [$classroom->id, $assignment->id]) }}">{{ $assignment->name }}</a>
 							</div>
 						@endforeach
 					@endif
