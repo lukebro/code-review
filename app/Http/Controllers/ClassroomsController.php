@@ -31,7 +31,6 @@ class ClassroomsController extends Controller
      */
     public function index()
     {
-
         return view(Auth::user()->view . '.classrooms.index', [
             'user' => Auth::user(),
             'classrooms' => Auth::user()->role->classrooms,

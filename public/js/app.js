@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 130);
+/******/ 	return __webpack_require__(__webpack_require__.s = 133);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1899,7 +1899,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(124)("./" + name);
+            __webpack_require__(126)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -4534,7 +4534,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(117)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(118)(module)))
 
 /***/ }),
 /* 1 */
@@ -15620,6 +15620,63 @@ return zhTw;
 /* 116 */
 /***/ (function(module, exports) {
 
+// this module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  scopeId,
+  cssModules
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  // inject cssModules
+  if (cssModules) {
+    var computed = Object.create(options.computed || null)
+    Object.keys(cssModules).forEach(function (key) {
+      var module = cssModules[key]
+      computed[key] = function () { return module }
+    })
+    options.computed = computed
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports) {
+
 var g;
 
 // This works in non-strict mode
@@ -15644,7 +15701,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -15672,15 +15729,24 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(121);
+__webpack_require__(123);
 
-Vue.component('checkpointCreator', __webpack_require__(126));
+Vue.component('checkpointCreator', __webpack_require__(128));
+Vue.component('modal', __webpack_require__(129));
+
+window.Event = new Vue({});
 
 var app = new Vue({
-    el: '#app'
+    el: '#app',
+
+    mounted: function mounted() {
+        this.$on('modal', function (name) {
+            Event.$emit('modal', name);
+        });
+    }
 });
 
 $('.flash').delay(3000).slideUp(500);
@@ -15692,13 +15758,13 @@ $('.flash.delete').click(function () {
 });
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15771,20 +15837,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         minimumDate: function minimumDate() {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default()().format('YYYY-MM-DDThh:mm');
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()().format('YYYY-MM-DDTHH:mm');
         },
         endOfDay: function endOfDay() {
-            return __WEBPACK_IMPORTED_MODULE_0_moment___default()().endOf('day').format('YYYY-MM-DDThh:mm');
+            return __WEBPACK_IMPORTED_MODULE_0_moment___default()().endOf('day').format('YYYY-MM-DDTHH:mm');
         }
     }
 });
 
 /***/ }),
-/* 121 */
+/* 122 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        name: {
+            type: String,
+            required: true
+        }
+    },
+
+    mounted: function mounted() {
+        var _this = this;
+
+        Event.$on('modal', function (name) {
+            if (name === _this.name) {
+                _this.active = true;
+            }
+        });
+    },
+    data: function data() {
+        return {
+            active: false
+        };
+    }
+});
+
+/***/ }),
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(123);
+window._ = __webpack_require__(125);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -15792,7 +15904,7 @@ window._ = __webpack_require__(123);
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = __webpack_require__(122);
+window.$ = window.jQuery = __webpack_require__(124);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -15800,7 +15912,7 @@ window.$ = window.jQuery = __webpack_require__(122);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(129);
+window.Vue = __webpack_require__(132);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -15828,7 +15940,7 @@ window.Vue = __webpack_require__(129);
 // });
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -26055,7 +26167,7 @@ return jQuery;
 
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -43144,10 +43256,10 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(116), __webpack_require__(117)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(117), __webpack_require__(118)(module)))
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -43396,10 +43508,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 124;
+webpackContext.id = 126;
 
 /***/ }),
-/* 125 */
+/* 127 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -43585,14 +43697,14 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 126 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(127)(
+var Component = __webpack_require__(116)(
   /* script */
-  __webpack_require__(120),
+  __webpack_require__(121),
   /* template */
-  __webpack_require__(128),
+  __webpack_require__(131),
   /* scopeId */
   null,
   /* cssModules */
@@ -43619,64 +43731,78 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 127 */
-/***/ (function(module, exports) {
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
 
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
+var Component = __webpack_require__(116)(
+  /* script */
+  __webpack_require__(122),
+  /* template */
+  __webpack_require__(130),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/lukebro/sites/code-review/resources/assets/js/components/Modal.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Modal.vue: functional components are not supported with templates, they should use render functions.")}
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  scopeId,
-  cssModules
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6d342f06", Component.options)
+  } else {
+    hotAPI.reload("data-v-6d342f06", Component.options)
   }
+})()}
 
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  // inject cssModules
-  if (cssModules) {
-    var computed = Object.create(options.computed || null)
-    Object.keys(cssModules).forEach(function (key) {
-      var module = cssModules[key]
-      computed[key] = function () { return module }
-    })
-    options.computed = computed
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
+module.exports = Component.exports
 
 
 /***/ }),
-/* 128 */
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal",
+    class: {
+      'is-active': _vm.active
+    }
+  }, [_c('div', {
+    staticClass: "modal-background"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "box"
+  }, [_c('h1', {
+    staticClass: "title"
+  }, [_vm._t("title")], 2), _vm._v(" "), _c('div', {
+    staticClass: "content"
+  }, [_vm._t("default")], 2)])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-close",
+    on: {
+      "click": function($event) {
+        _vm.active = false
+      }
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-6d342f06", module.exports)
+  }
+}
+
+/***/ }),
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -43798,7 +43924,7 @@ if (false) {
 }
 
 /***/ }),
-/* 129 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53111,14 +53237,14 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(125), __webpack_require__(116)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(127), __webpack_require__(117)))
 
 /***/ }),
-/* 130 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(118);
-module.exports = __webpack_require__(119);
+__webpack_require__(119);
+module.exports = __webpack_require__(120);
 
 
 /***/ })

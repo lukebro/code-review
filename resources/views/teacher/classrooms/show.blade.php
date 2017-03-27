@@ -9,7 +9,7 @@
 			@endslot
 
 			<div class="level-item"><a href="{{ route('assignments.create', $classroom->id) }}" class="button is-primary">Create assignement</a></div>
-			<div class="level-item"><a href="#" class="button is-primary">Gradebook</a></div>
+			<div class="level-item"><button @click="$emit('modal', 'gradebook')" class="button is-primary">Gradebook</button></div>
 			<div class="level-item"><a target="_blank" href="https://github.com/{{ $classroom->org }}" class="button"><span class="icon is-medium"><i class="fa fa-github"></i></span></a></div>
 		@endcomponent
 
@@ -47,5 +47,11 @@
 		</div>
 
 	@endcomponent
+
+	<modal name="gradebook">
+		<template slot="title">Gradebook</template>
+
+		<p>The gradebook stuff maybe will go here? Not sure yet.. 🤔</p>
+	</modal>
 
 @endsection

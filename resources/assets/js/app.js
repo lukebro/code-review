@@ -1,9 +1,18 @@
 require('./bootstrap');
 
 Vue.component('checkpointCreator', require('./components/CheckpointCreator.vue'));
+Vue.component('modal', require('./components/Modal.vue'));
+
+window.Event = new Vue({});
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+
+    mounted() {
+    	this.$on('modal', name => {
+    		Event.$emit('modal', name);
+    	});
+    }
 });
 
 $('.flash').delay(3000).slideUp(500);

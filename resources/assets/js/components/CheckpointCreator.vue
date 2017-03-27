@@ -65,10 +65,10 @@
 
         computed: {
             minimumDate() {
-                return moment().format('YYYY-MM-DDThh:mm');
+                return moment().format('YYYY-MM-DDTHH:mm');
             },
             endOfDay() {
-                return moment().endOf('day').format('YYYY-MM-DDThh:mm');
+                return moment().endOf('day').format('YYYY-MM-DDTHH:mm');
             }
         }
     }
