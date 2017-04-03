@@ -13,8 +13,7 @@
 			@slot('subtitle')
 				{{ $assignment->name }}
 			@endslot
-
-			<div class="level-item"><a href="#" class="button"><span class="icon is-medium"><i class="fa fa-gear"></i></span></a></div>
+			<div class="level-item"><a href="{{ route('teams.create', [$classroom->id, $assignment->id]) }}" class="button is-primary">Join Assignment</a></div>
 			<div class="level-item"><a href="{{ route('classrooms.show', $classroom->id) }}" class="button">Back</a></div>
 		@endcomponent
 
@@ -25,25 +24,6 @@
 				@if ($assignment->description)
 					<div class="box"><p>{!! $assignment->description !!}</p></div>
 				@endif
-
-				<div class="columns">
-					<div class="column is-6">
-						<div class="panel">
-							<div class="panel-heading">Teams</div>
-							@if ($assignment->teams)
-								@foreach ($assignment->teams as $team)
-									<div class="panel-block">
-										<div><strong>{{ $team->name }}</strong> - {{ $team->users->implode('name') }}</div>
-									</div>
-								@endforeach
-							@else
-							<div class="panel-block">
-								<p>No teams exist yet.</p>
-							</div>
-							@endif
-						</div>
-					</div>
-				</div>
 
 			</div>
 

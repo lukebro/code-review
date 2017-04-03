@@ -3,6 +3,7 @@
 namespace App;
 
 use App\PendingMember;
+use App\Team;
 use Auth;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -19,7 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username', 'name', 'email', 'git_token', 'type', 'avatar_url', 'school_id',
     ];
-    
+
     public function role()
     {
         return $this->hasOne($this->type);
@@ -28,6 +29,11 @@ class User extends Authenticatable
     public function pending()
     {
         return $this->hasMany(PendingMember::class);
+    }
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class);
     }
 
     public function scopeTeachers($query)
@@ -65,5 +71,16 @@ class User extends Authenticatable
     public function isStudent()
     {
         return $this->type == Student::class;
+    }
+
+    public function hasTeam(Assignment $assignment)
+    {
+        foreach ($this->teams as $team) {
+            if ($team->assignment_id == $assignment->id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

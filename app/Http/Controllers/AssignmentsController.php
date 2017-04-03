@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Assignment;
 use App\Classroom;
 use Carbon\Carbon;
@@ -66,7 +67,7 @@ class AssignmentsController extends Controller
      */
     public function show(Classroom $classroom, Assignment $assignment)
     {
-        return view('teacher.assignments.show', [
+        return view(Auth::user()->view.'.assignments.show', [
             'classroom' => $classroom,
             'assignment' => $assignment
         ])->withTitle($assignment->name);
@@ -104,5 +105,10 @@ class AssignmentsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function join(Classroom $classroom, Assignment $assignment)
+    {
+        return view('student.assignments.team.create')->withTitle('Create or join');
     }
 }

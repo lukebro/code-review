@@ -4,6 +4,8 @@ namespace App;
 
 use App\Checkpoint;
 use App\Classroom;
+use App\Team;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Assignment extends Model
@@ -24,6 +26,11 @@ class Assignment extends Model
     public function checkpoints()
     {
     	return $this->hasMany(Checkpoint::class)->orderBy('due_at');
+    }
+
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
     }
 
     public function getNextDueAttribute()

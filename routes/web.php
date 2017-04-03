@@ -12,6 +12,9 @@ Route::group(['prefix' => 'classrooms/{classroom}'], function () {
 	Route::resource('assignments', 'AssignmentsController', ['except' => [
 		'index'
 	]]);
+
+	Route::resource('assignments/{assignment}/teams', 'TeamsController');
+	Route::post('assignments/{assignment}/teams/{team}','TeamsController@join')->name('teams.join');
 });
 
 
