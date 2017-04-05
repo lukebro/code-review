@@ -39,7 +39,7 @@ class TeamsController extends Controller
 
         flash()->success('Successfully join team "'.$team->name.'"');
 
-        return redirect('assignments.show', [$classroom->id, $assignment->id]);
+        return redirect()->route('assignments.show', [$classroom->id, $assignment->id]);
     }
 
     public function join(Classroom $classroom, Assignment $assignment, Team $team)
