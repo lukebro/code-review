@@ -45,6 +45,8 @@ class AssignmentsController extends Controller
             $attributes['description'] = $parser->parse($attributes['description']);
         }
 
+        $attributes['prefix'] = str_slug($attributes['prefix']);
+
         $assignment = $classroom->assignments()->create($attributes);
 
         foreach(request('checkpoint') as $checkpoint) {

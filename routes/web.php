@@ -26,3 +26,5 @@ Route::get('logout', 'Auth\GithubController@logout')->name('logout');
 // Settings
 Route::get('settings', 'SettingsController@index')->name('settings');
 Route::patch('settings', 'SettingsController@update');
+
+Route::get('rocky', 'DevController@index');

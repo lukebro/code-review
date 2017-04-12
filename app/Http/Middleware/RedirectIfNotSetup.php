@@ -18,6 +18,7 @@ class RedirectIfNotSetup
     {
 
         if (! Auth::user()->isSetup()) {
+            // TODO: this doesn't work.... :(
             session(['previous_path' => $request->path()]);
             return redirect()->route('setup');
         }

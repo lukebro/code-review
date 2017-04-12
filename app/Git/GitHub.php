@@ -17,7 +17,10 @@ class GitHub {
 	public function __construct(Client $client)
 	{
 		$this->client = $client;
-		$this->withUser(Auth::user());
+
+		if (Auth::check()) {
+			$this->withUser(Auth::user());
+		}
 	}
 
 	public function withUser(User $user)

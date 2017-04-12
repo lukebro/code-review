@@ -14,8 +14,10 @@ class CreateCheckpointsTable extends Migration
     public function up()
     {
         Schema::create('checkpoints', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name');
             $table->timestamp('due_at');
+            $table->boolean('due')->default(0);
             $table->integer('assignment_id')->unsigned();
 
             $table->foreign('assignment_id')->references('id')->on('assignments');

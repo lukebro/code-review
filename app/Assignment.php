@@ -18,6 +18,11 @@ class Assignment extends Model
     	'classroom_id',
     ];
 
+    public function getUserAttribute()
+    {
+        return $this->classroom->user;
+    }
+
     public function classroom()
     {
     	return $this->belongsTo(Classroom::class);
@@ -31,6 +36,13 @@ class Assignment extends Model
     public function teams()
     {
         return $this->hasMany(Team::class);
+    }
+
+    public function team(User $user)
+    {
+        return $this->teams()->with('users')->get()->first(function ($team) use ($user) {
+            return $team->users->contains($user);
+        });
     }
 
     public function getNextDueAttribute()

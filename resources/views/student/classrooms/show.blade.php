@@ -4,7 +4,11 @@
 
     @component('components.section')
 
-        <h2 class="title is-2">{{ $classroom->name }}</h2>
+        @component('components.menu')
+			@slot('title')
+				{{ $classroom->name }}
+			@endslot
+		@endcomponent
 
         <div class="columns">
         	<div class="column is-6">

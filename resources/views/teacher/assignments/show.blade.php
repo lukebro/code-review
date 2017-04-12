@@ -30,10 +30,10 @@
 					<div class="column is-6">
 						<div class="panel">
 							<div class="panel-heading">Teams</div>
-							@if ($assignment->teams)
+							@if ($assignment->teams->count())
 								@foreach ($assignment->teams as $team)
 									<div class="panel-block">
-										<div><strong>{{ $team->name }}</strong> - {{ $team->users->implode('name') }}</div>
+										<div><a target="_blank" href="https://github.com/{{ $assignment->classroom->org }}/{{ $team->repo }}">{{ $team->name }}</a> - {{ $team->users->implode('name') }}</div>
 									</div>
 								@endforeach
 							@else
@@ -51,15 +51,24 @@
 				<div class="menu-label">Checkpoints</div>
 				<ul class="menu-list">
 				@foreach ($assignment->checkpoints as $checkpoint)
+						@if ($checkpoint->due)
+							<strike>
+						@endif
 						<li><strong>{{ $checkpoint->name }}</strong>
 							<ul>
-								@if ($checkpoint->due_at->diffInDays(Carbon\Carbon::now()) > 1)
+								@if ($checkpoint->due)
+									<li>Complete</li>
+								@elseif ($checkpoint->due_at->diffInDays(Carbon\Carbon::now()) > 1)
 									<li>{{ $checkpoint->due_at->toDayDateTimeString() }}</li>
 								@else
 									<li>{{ $checkpoint->due_at->diffForHumans() }}</li>
 								@endif
 							</ul>
 						</li>
+
+						@if ($checkpoint->due)
+							</strike>
+						@endif
 				@endforeach
 				</ul>
 			</div>

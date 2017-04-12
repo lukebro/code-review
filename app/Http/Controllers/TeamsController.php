@@ -7,6 +7,7 @@ use App\Classroom;
 use App\Team;
 use Auth;
 use Illuminate\Http\Request;
+use App\Git\Github;
 
 class TeamsController extends Controller
 {
@@ -23,7 +24,7 @@ class TeamsController extends Controller
     	])->withTitle('Create or join team');
     }
 
-    public function store(Classroom $classroom, Assignment $assignment)
+    public function store(Classroom $classroom, Assignment $assignment, Github $github)
     {
         if (Auth::user()->hasTeam($assignment)) {
             flash()->danger('You\'re already part of a team for this assignment.');
@@ -34,6 +35,16 @@ class TeamsController extends Controller
             'name' => request('name'),
             'slug' => str_slug(request('name')),
         ]);
+
+        $repo = $github->withUser($assignment->user)->repository();
+
+        $repo->create([
+            'name' => $assignment->prefix . '-' . $team->slug,
+            'description' => 'Repository created by code review.',
+            'organization' => $classroom->org
+        ]);
+
+        $repo->addCollaborator($classroom->org, $team->repo, Auth::user());
 
         $team->users()->attach(Auth::user());
 
@@ -49,10 +60,14 @@ class TeamsController extends Controller
             return redirect()->route('assignments.show', [$classroom->id, $assignment->id]);
         }
 
+        $repo = $github->withUser($assignment->user)->repository();
+        $repo->addCollaborator(Auth::user(), $repository->name, $classroom->org);
+
         $team->users()->attach(Auth::user());
 
         flash()->success('Successfully join team "'.$team->name.'"');
 
         return redirect('assignments.show', [$classroom->id, $assignment->id]);
     }
+
 }
