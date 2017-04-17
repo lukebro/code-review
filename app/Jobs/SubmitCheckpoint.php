@@ -44,7 +44,6 @@ class SubmitCheckpoint implements ShouldQueue
 
         foreach ($teams as $team) {
             $commits = $github->repository()->allCommits($classroom->org, $team->repo);
-
             $submissions = $team->submissions;
 
             if ($submissions->count()) {
