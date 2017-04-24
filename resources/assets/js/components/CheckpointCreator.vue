@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="columns" v-for="(checkpoint, index) in checkpoints">
+        <div class="columns is-multiline" v-for="(checkpoint, index) in checkpoints">
             <div class="column is-1 has-padding">
                 <label class="label">
                     <div class="title is-2">{{ index + 1 }}</div>
@@ -30,6 +30,19 @@
                     </span>
                 </div>
             </div>
+            <div class="column is-1"></div>
+            <div class="column is-7">
+                <div class="field">
+                    <label class="label">Description</label>
+                    <input class="input" :name="'checkpoint['+index+'][description]'" placeholder="Description of the checkpoint (optional)" autocomplete="off">
+                </div>
+            </div>
+            <div class="column is-3">
+                <div class="field">
+                    <label class="label">Total Points</label>
+                    <input class="input" :name="'checkpoint['+index+'][points]'" placeholder="Points" autocomplete="off" required>
+                </div>
+            </div>
         </div>
         <button type="button" class="button is-default is-pulled-right" @click="addEmptyCheckpoint">Add checkpoint</button>
         <div class="is-clearfix"></div>
@@ -54,7 +67,9 @@
             addEmptyCheckpoint() {
                 this.checkpoints.push({
                     name: '',
-                    due_at: this.endOfDay
+                    due_at: this.endOfDay,
+                    description: '',
+                    points: '',
                 });
             },
 

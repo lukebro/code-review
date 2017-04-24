@@ -17,7 +17,8 @@ class CreateSubmissionsTable extends Migration
             $table->increments('id');
             $table->integer('checkpoint_id')->unsigned();
             $table->integer('team_id')->unsigned();
-            $table->string('sha');
+            $table->string('previous_sha');
+            $table->string('comment_sha');
             $table->timestamps();
 
             $table->foreign('checkpoint_id')

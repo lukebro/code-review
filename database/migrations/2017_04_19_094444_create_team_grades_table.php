@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCheckpointsTable extends Migration
+class CreateTeamGradesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreateCheckpointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('checkpoints', function (Blueprint $table) {
+        Schema::create('team_grades', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->double('points');
-            $table->dateTime('due_at');
-            $table->boolean('due')->default(0);
             $table->integer('assignment_id')->unsigned();
+            $table->integer('checkpoint_id')->unsigned();
+            $table->integer('team_id')->unsigned();
+            $table->text('comments')->nullable();
+            $table->timestamps();
 
             $table->foreign('assignment_id')->references('id')->on('assignments');
+            $table->foreign('checkpoint_id')->references('id')->on('checkpoints');
+            $table->foreign('team_id')->references('id')->on('teams');
         });
     }
 
@@ -33,6 +34,6 @@ class CreateCheckpointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('checkpoints');
+        Schema::dropIfExists('team_grades');
     }
 }

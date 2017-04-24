@@ -16109,6 +16109,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -16127,7 +16140,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         addEmptyCheckpoint: function addEmptyCheckpoint() {
             this.checkpoints.push({
                 name: '',
-                due_at: this.endOfDay
+                due_at: this.endOfDay,
+                description: '',
+                points: ''
             });
         },
         removeCheckpoint: function removeCheckpoint(index) {
@@ -44110,7 +44125,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._l((_vm.checkpoints), function(checkpoint, index) {
     return _c('div', {
-      staticClass: "columns"
+      staticClass: "columns is-multiline"
     }, [_c('div', {
       staticClass: "column is-1 has-padding"
     }, [_c('label', {
@@ -44204,7 +44219,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.removeCheckpoint(index)
         }
       }
-    })]) : _vm._e()])])])
+    })]) : _vm._e()])]), _vm._v(" "), _c('div', {
+      staticClass: "column is-1"
+    }), _vm._v(" "), _c('div', {
+      staticClass: "column is-7"
+    }, [_c('div', {
+      staticClass: "field"
+    }, [_c('label', {
+      staticClass: "label"
+    }, [_vm._v("Description")]), _vm._v(" "), _c('input', {
+      staticClass: "input",
+      attrs: {
+        "name": 'checkpoint[' + index + '][description]',
+        "placeholder": "Description of the checkpoint (optional)",
+        "autocomplete": "off"
+      }
+    })])]), _vm._v(" "), _c('div', {
+      staticClass: "column is-3"
+    }, [_c('div', {
+      staticClass: "field"
+    }, [_c('label', {
+      staticClass: "label"
+    }, [_vm._v("Total Points")]), _vm._v(" "), _c('input', {
+      staticClass: "input",
+      attrs: {
+        "name": 'checkpoint[' + index + '][points]',
+        "placeholder": "Points",
+        "autocomplete": "off",
+        "required": ""
+      }
+    })])])])
   }), _vm._v(" "), _c('button', {
     staticClass: "button is-default is-pulled-right",
     attrs: {

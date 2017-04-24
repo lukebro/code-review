@@ -1,5 +1,5 @@
 let mix = require('laravel-mix').mix;
-
+mix.disableNotifications();
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management

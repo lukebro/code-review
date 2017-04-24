@@ -9,9 +9,8 @@
 			@endslot
 
 			<div class="level-item"><a href="{{ route('assignments.create', $classroom->id) }}" class="button is-primary">Create assignment</a></div>
-			<div class="level-item"><button @click="$emit('modal', 'gradebook')" class="button is-primary">Gradebook</button></div>
-			<div class="level-item"><a href="#" class="button"><span class="icon is-medium"><i class="fa fa-gear"></i></span></a></div>
 			<div class="level-item"><a target="_blank" href="https://github.com/{{ $classroom->org }}" class="button"><span class="icon is-medium"><i class="fa fa-github"></i></span></a></div>
+			<div class="level-item"><a href="#" class="button"><span class="icon is-medium"><i class="fa fa-gear"></i></span></a></div>
 		@endcomponent
 
 		<div class="columns">
@@ -25,13 +24,17 @@
 							<div class="panel-block">
 								<div class="content">
 									<p>
-										<div class="title"><a href="{{ route('assignments.show', [$classroom->id, $assignment->id]) }}">{{ $assignment->name }}</a></div>
+										<div class="title"><a href="{{ route('assignments.show', $assignment) }}">{{ $assignment->name }}</a></div>
 										<small>Next due date:
-											@if ($assignment->nextDueDate->diffInDays(Carbon\Carbon::now()) < 1)
-												<strong>{{ $assignment->nextDueDate->diffForHumans() }}</strong>
+											<strong>
+											@if (is_null($assignment->nextDueDate))
+												None
+											@elseif ($assignment->nextDueDate->diffInDays(Carbon\Carbon::now()) < 1)
+												{{ $assignment->nextDueDate->diffForHumans() }}
 											@else
 												{{ $assignment->nextDueDate->toDayDateTimeString() }}
 											@endif
+											</strong>
 										</small>
 									</p>
 								</div>
@@ -59,11 +62,5 @@
 		</div>
 
 	@endcomponent
-
-	<modal name="gradebook">
-		<template slot="title">Gradebook</template>
-
-		<p>The gradebook stuff maybe will go here? Not sure yet.. 🤔</p>
-	</modal>
 
 @endsection

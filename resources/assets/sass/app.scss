@@ -22,3 +22,12 @@
 	align-items: center;
 	height: 100%;
 }
+
+.button.is-text {
+	color: $text;
+	opacity: 1;
+}
+
+.input.is-centered {
+	text-align: center;
+}

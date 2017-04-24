@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Assignment;
+use App\Submission;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\belongsTo;
 use Illuminate\Database\Eloquent\Model;
@@ -14,11 +15,14 @@ class Checkpoint extends Model
     protected $fillable = [
     	'name',
     	'due_at',
+        'due',
+        'description',
+        'points',
     	'assignment_id',
     ];
 
-    protected $dates = [
-        'due_at',
+    protected $casts = [
+        'due_at' => 'datetime',
     ];
 
     public function getSlugAttribute()
@@ -29,6 +33,11 @@ class Checkpoint extends Model
     public function assignment()
     {
     	return $this->belongsTo(Assignment::class);
+    }
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
     }
 
     public function scopeDue($query)

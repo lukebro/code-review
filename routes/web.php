@@ -7,15 +7,16 @@ Route::post('setup', 'SetupController@setup');
 
 Route::resource('classrooms', 'ClassroomsController');
 Route::get('classrooms/join/{token}', 'ClassroomsController@join')->name('classrooms.join');
+Route::get('classrooms/{classroom}/create', 'AssignmentsController@create')->name('assignments.create');
+Route::post('classrooms/{classroom}/store', 'AssignmentsController@store')->name('assignments.store');
 
-Route::group(['prefix' => 'classrooms/{classroom}'], function () {
-	Route::resource('assignments', 'AssignmentsController', ['except' => [
-		'index'
-	]]);
+Route::resource('grades', 'GradesController');
+Route::get('submissions/{submission}', 'SubmissionsController@show')->name('submissions.show');
 
-	Route::resource('assignments/{assignment}/teams', 'TeamsController');
-	Route::post('assignments/{assignment}/teams/{team}','TeamsController@join')->name('teams.join');
-});
+Route::resource('assignments', 'AssignmentsController', ['except' => ['index', 'create', 'store']]);
+
+Route::resource('assignments/{assignment}/teams', 'TeamsController');
+Route::post('assignments/{assignment}/teams/{team}','TeamsController@join')->name('teams.join');
 
 
 // Auth

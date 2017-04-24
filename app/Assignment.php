@@ -47,11 +47,16 @@ class Assignment extends Model
 
     public function getNextDueAttribute()
     {
-        return $this->checkpoints()->first();
+        return $this->checkpoints()->where('due', 0)->first();
     }
 
     public function getNextDueDateAttribute()
     {
-        return $this->nextDue->due_at;
+        if ($this->nextDue) {
+            return $this->nextDue->due_at;
+        }
+
+        return null;
     }
+
 }

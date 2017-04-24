@@ -34,4 +34,10 @@ class Team extends Model
     {
         return $this->hasMany(Submission::class);
     }
+
+    public function displayUsers()
+    {
+        return $this->users->implode('name');
+    }
+
 }

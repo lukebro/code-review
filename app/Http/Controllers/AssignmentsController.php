@@ -31,7 +31,7 @@ class AssignmentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Classroom $classroom, Request $request)
+    public function store(Classroom $classroom)
     {
         $attributes = request([
             'name',
@@ -52,7 +52,9 @@ class AssignmentsController extends Controller
         foreach(request('checkpoint') as $checkpoint) {
             $assignment->checkpoints()->create([
                 'name' => $checkpoint['name'],
-                'due_at' => Carbon::parse($checkpoint['due_at'])
+                'due_at' => Carbon::parse($checkpoint['due_at'], 'America/New_York')->timestamp,
+                'description' => $checkpoint['description'],
+                'points' => $checkpoint['points'],
             ]);
         }
 
@@ -67,10 +69,10 @@ class AssignmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Classroom $classroom, Assignment $assignment)
+    public function show(Assignment $assignment)
     {
         return view(Auth::user()->view.'.assignments.show', [
-            'classroom' => $classroom,
+            'classroom' => $assignment->classroom,
             'assignment' => $assignment
         ])->withTitle($assignment->name);
     }
@@ -109,8 +111,10 @@ class AssignmentsController extends Controller
         //
     }
 
-    public function join(Classroom $classroom, Assignment $assignment)
+    public function join(Assignment $assignment)
     {
-        return view('student.assignments.team.create')->withTitle('Create or join');
+        return view('student.assignments.team.create',[
+            'assignment' => $assignment,
+        ])->withTitle('Create or join');
     }
 }

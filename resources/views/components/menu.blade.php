@@ -5,7 +5,8 @@
 	      <h3 class="title is-3">
 	        <strong>{{ $title }}</strong>
           @if (isset($subtitle))
-            <small>&ndash; {{ $subtitle }}</small>
+            <br>
+            <small>{{ $subtitle }}</small>
           @endif
 	      </h3>
 	    </div>

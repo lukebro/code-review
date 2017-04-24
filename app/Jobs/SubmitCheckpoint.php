@@ -53,12 +53,16 @@ class SubmitCheckpoint implements ShouldQueue
             }
 
             $github->repository()->createBranch($classroom->org, $team->repo, $this->checkpoint->slug, $sha);
-            $github->repository()->merge($classroom->org, $team->repo, $this->checkpoint->slug, 'Submission created by CR.');
+            $submission = $github->repository()->merge($classroom->org, $team->repo, $this->checkpoint->slug, 'Submission created by CR.');
+
+            // TODO: Protect branch API still in previous
+            // $github->repository()->protectBranch($classroom->org, $team->repo, $this->checkpoint->slug);
 
             Submission::create([
                 'team_id' => $team->id,
                 'checkpoint_id' => $this->checkpoint->id,
-                'sha' => $sha,
+                'comment_sha' => $submission['sha'],
+                'previous_sha' => $sha
             ]);
         }
 

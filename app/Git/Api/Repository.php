@@ -48,6 +48,21 @@ class Repository extends AbstractGitApi {
         ]);
     }
 
+    public function protectBranch($org, $repo, $branch)
+    {
+        return $this->client->api('repo')->protection()->update($org, $repo, $branch, [
+            'required_status_check' => [
+                'include_admins' => false,
+                'strict' => false,
+                'contexts' => '',
+            ],
+
+            'required_pull_request_reviews' => [
+                'include_admins' => false,
+            ],
+        ]);
+    }
+
     public function merge($org, $repo, $base, $message, $head = 'master')
     {
         return $this->client->api('repo')->merge($org, $repo, $base, $head, $message);

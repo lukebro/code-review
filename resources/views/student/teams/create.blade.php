@@ -19,7 +19,7 @@
 					@foreach ($assignment->teams as $team)
 					<div class="panel-block">
 						<div class="column is-12">
-						<form method="POST" class="form" action="{{ route('teams.join', [$classroom->id, $assignment->id, $team->id]) }}">
+						<form method="POST" class="form" action="{{ route('teams.join', [$assignment->id, $team->id]) }}">
 							{{ csrf_field() }}
 							<div class="is-pulled-left"><strong>{{ $team->name }}</strong></div>
 
@@ -36,7 +36,7 @@
 				</div>
 				<h3 class="title">Create Team</h3>
 				@include('partials.errors')
-				<form method="POST" class="form" action="{{ route('teams.store', [$classroom->id, $assignment->id]) }}">
+				<form method="POST" class="form" action="{{ route('teams.store', $assignment) }}">
 						{{ csrf_field() }}
 						<div class="field">
 							<label class="label">Name*</label>

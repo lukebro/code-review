@@ -14,6 +14,7 @@
 				{{ $assignment->name }}
 			@endslot
 
+			<div class="level-item"><a target="_blank" href="https://github.com/{{ $classroom->org }}?q={{ $assignment->prefix }}-" class="button"><span class="icon is-medium"><i class="fa fa-github"></i></span></a></div>
 			<div class="level-item"><a href="#" class="button"><span class="icon is-medium"><i class="fa fa-gear"></i></span></a></div>
 			<div class="level-item"><a href="{{ route('classrooms.show', $classroom->id) }}" class="button">Back</a></div>
 		@endcomponent
@@ -51,13 +52,10 @@
 				<div class="menu-label">Checkpoints</div>
 				<ul class="menu-list">
 				@foreach ($assignment->checkpoints as $checkpoint)
-						@if ($checkpoint->due)
-							<strike>
-						@endif
 						<li><strong>{{ $checkpoint->name }}</strong>
 							<ul>
 								@if ($checkpoint->due)
-									<li>Complete</li>
+									<li><span><a class="button is-primary" href="{{ route('grades.show', $checkpoint) }}">Grade</a></span></li>
 								@elseif ($checkpoint->due_at->diffInDays(Carbon\Carbon::now()) > 1)
 									<li>{{ $checkpoint->due_at->toDayDateTimeString() }}</li>
 								@else
@@ -65,10 +63,6 @@
 								@endif
 							</ul>
 						</li>
-
-						@if ($checkpoint->due)
-							</strike>
-						@endif
 				@endforeach
 				</ul>
 			</div>

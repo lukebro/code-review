@@ -14,11 +14,11 @@
 				{{ $assignment->name }}
 			@endslot
 			@if (! Auth::user()->hasTeam($assignment))
-				<div class="level-item"><a href="{{ route('teams.create', [$classroom->id, $assignment->id]) }}" class="button is-primary">Join Assignment</a></div>
+				<div class="level-item"><a href="{{ route('teams.create', $assignment) }}" class="button is-primary">Join Assignment</a></div>
 			@else
 			<div class="level-item"><a target="_blank" href="https://github.com/{{ $classroom->org }}/{{ $assignment->team(Auth::user())->repo }}" class="button"><span class="icon is-medium"><i class="fa fa-github"></i></span></a></div>
 			@endif
-			<div class="level-item"><a href="{{ route('classrooms.show', $classroom->id) }}" class="button">Back</a></div>
+			<div class="level-item"><a href="{{ route('classrooms.show', $classroom) }}" class="button">Back</a></div>
 		@endcomponent
 
 
